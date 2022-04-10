@@ -265,8 +265,8 @@ function init(
 end
 
 function init(𝑭𝑿::ZeroProblem, p′=nothing; kwargs...)
-    M =  length(𝑭𝑿.x₀) == 1 ? Order0() : AlefeldPotraShi()
-    init(𝑭𝑿, M; p = p′, kwargs...)
+    M = length(𝑭𝑿.x₀) == 1 ? Order0() : AlefeldPotraShi()
+    init(𝑭𝑿, M; p=p′, kwargs...)
 end
 
 function init(
@@ -278,7 +278,6 @@ function init(
 )
     ZeroProblemIterator(M, Nothing, Callable_Function(M, F), state, options, l)
 end
-
 
 """
     solve(fx::ZeroProblem, [M], [N]; p=nothing, kwargs...)
@@ -427,7 +426,6 @@ function solve!(P::ZeroProblemIterator; verbose=false)
     verbose && display(l)
 
     α
-
 end
 
 # thread verbose through
@@ -438,7 +436,6 @@ Disptaches to `solve!(init(fx, args...; kwargs...))`. See [`solve!`](@ref) for d
 """
 CommonSolve.solve(𝑭𝑿::ZeroProblem, args...; verbose=false, kwargs...) =
     solve!(init(𝑭𝑿, args...; verbose=verbose, kwargs...); verbose=verbose)
-
 
 # Optional iteration interface to handle looping
 # * returns xₙ or (aₙ, bₙ) depending
@@ -472,6 +469,5 @@ function Base.iterate(P::ZeroProblemIterator, st=nothing)
         isnan(α) && throw(ConvergenceFailed("Algorithm did not converge."))
     end
 
-    return (last(state,M), (state, ctr, flag, stopped))
-
+    return (last(state, M), (state, ctr, flag, stopped))
 end

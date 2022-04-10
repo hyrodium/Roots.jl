@@ -302,21 +302,14 @@ end
     ## test broadcasting semantics with ZeroProblem
     ## This assume parameters can be passed in a positional manner, a
     ## style which is discouraged, as it is confusing
-    Z = ZeroProblem((x, p) -> cos(x) - x/p, pi / 4)
+    Z = ZeroProblem((x, p) -> cos(x) - x / p, pi / 4)
     @test all(solve.(Z, (1, 2)) .≈ (solve(Z, 1), solve(Z, 2)))
 end
 
 @testset "find_zero issue tests" begin
 
     ## Misc tests
-    Ms = [
-        Order0(),
-        Order1(),
-        Order2(),
-        Order5(),
-        Order8(),
-        Order16(),
-    ]
+    Ms = [Order0(), Order1(), Order2(), Order5(), Order8(), Order16()]
 
     ## issues with starting near a maxima. Some bounce out of it, but
     ## one would expect all to have issues
